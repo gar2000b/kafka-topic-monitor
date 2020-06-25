@@ -1,0 +1,65 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+<title>Kafka Monitor</title>
+<meta charset="utf-8">
+<meta name="description" content="Kafka Monitor">
+<meta name="author" content="Deposits">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+<link rel="stylesheet" type="text/css" href="css/main.css">
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script type="text/javascript" src="javascript/xmlhttpobject.js"></script>
+<script type="text/javascript" src="javascript/kafka-monitor.js"></script>
+<!-- <link rel="icon" type="image/png" href="images/some_icon.png" /> -->
+</head>
+
+<body>
+	<div align="center">
+	<br>
+		<h1 style="margin-top: 0px; margin-bottom: 10px;">
+			Kafka Topic Monitor
+		</h1>
+		<p style="margin-top: 10px; margin-bottom: 10px;">This tool is used for monitoring Kafka Topics (across various
+			environments) within the Deposits Group</p>
+		<table id="topicTable">
+			<tr>
+				<th align="right">Topic</th>
+				<th>Name</th>
+				<th>Consumer Group</th>
+				<th>Environment</th>
+				<th>Offset</th>
+				<th>Latest Payload</th>
+			</tr>
+			<!--         <tr>
+            <td><img id="topicImg" alt="ABC" src="images/topic.png" style="width: 136px; height: 36px; "/></th>
+            <td>bw00-q-pda-opened-event</td>
+            <td>bw00-q-pda-opened-event-cg1</td>
+            <td>DEV</td>
+            <td>0</td>
+            <td><a onclick="renderLatestPayload(); return 0;" href="#" title="Click here to view last payload">15:52 - 29/07/18</a></td>
+        </tr> -->
+		</table>
+		<br /><br /> <input type="text" name="topicname" id="topicname" size="30"
+			disabled="disabled" style="border: solid 1 black;" /> <input
+			type="text" name="consumergroup" id="consumergroup" size="30"
+			disabled="disabled" style="border: solid 1 black;" /> <input
+			type="text" name="offset" id="offset"
+			style="border: solid 1 black;"> <input type="button"
+            value="<" title="back" onclick="back();" style="padding: 2px;"> <input type="button"
+            value=">" title="forward" onclick="forward();" style="padding: 2px;"> <input type="button"
+			value="Fetch Record" onclick="fetchRecord();" style="padding: 2px;"><br /> <br />
+		<textarea name="payload" id="payload" rows="10" cols="110"
+			 style="border: solid 1 black; padding: 4px;"></textarea>
+			<br>
+			<a onclick="resetConsumers();" href="#">Reset Consumers</a>
+			<a onclick="logout();" href="#">Logout</a>
+    <form action="/perform_logout" id="logout" method="post">
+        <input type="hidden" name="_csrf" id="_csrf_logout" value="" />
+    </form>
+	</div>
+</body>
+
+</html>

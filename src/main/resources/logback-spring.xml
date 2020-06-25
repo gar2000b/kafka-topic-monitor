@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <!-- =============================================================================================== -->
+    <!-- This logback configuration file adds a RestAppender to stream log output to a remote service. -->
+    <!-- This file is logback.xml not logback-spring.xml. The latter has different operating semantics. -->
+    <!-- =============================================================================================== -->
+
+    <!-- This line includes a default ConsoleAppender -->
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <!-- ============================================================ -->
+    <!-- Define and configure the RestAppender -->
+    <!-- Any value set here may be overridden via application.yml -->
+    <!-- ============================================================ -->
+
+    <!-- local/default profile -->
+    <!-- Required values -->
+    <property name="application" value="kafka-topic-monitor" />
+    <property name="serviceUrl" value="http://localhost:8105/v1/log-it" />
+    <property name="username" value="one" />
+    <property name="password" value="one" />
+    <property name="envCode" value="l" />
+    <!-- Optional values -->
+    <!-- <property name="numWriters" value="2" /> -->
+    <!-- <property name="errorTimeoutSeconds" value="5" /> -->
+
+</configuration>

@@ -1,0 +1,25 @@
+#--------------------------------------------------
+# Default Application Settings (geared for local)
+#--------------------------------------------------
+logging.level:
+  root: INFO
+  com.onlineinteract: INFO
+
+application:
+  name: kafka-topic-monitor
+  version: 0.0.1
+  env-code: l  
+  audit.enabled: false
+  
+server:
+  contextPath: /
+  port: 8090
+  
+authentication:
+  username: test
+  password: password
+  
+kafka:
+  bootstrap.servers: localhost:9092
+  schema.registry.url: http://localhost:8081
+  
