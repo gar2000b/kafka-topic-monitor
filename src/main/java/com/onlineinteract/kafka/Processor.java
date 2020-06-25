@@ -72,6 +72,7 @@ public class Processor {
         Map<String, String> topicConfigurations = new HashMap<>();
         if (applicationProperties.getApplicationEnvCode().equals(LOCAL_ENV)) {
             topicConfigurations.put(KafkaConfig.LOCAL_TEST_TOPIC, KafkaConfig.LOCAL_TEST_TOPIC_CONFIGURATION);
+            topicConfigurations.put(KafkaConfig.LOCAL_EXAMPLE_TOPIC, KafkaConfig.LOCAL_EXAMPLE_TOPIC_CONFIGURATION);
 		}
 
         logger.info("**** topicConfigurations length is: " + topicConfigurations.size() + " ****");
@@ -87,7 +88,7 @@ public class Processor {
             }
 
             Properties buildProperties = kafkaConfig.buildLocalConsumerProperties(topicConfiguration);
-            KafkaConsumer<String, Record> consumer = new KafkaConsumer<>(buildProperties);
+            KafkaConsumer<String, ?> consumer = new KafkaConsumer<>(buildProperties);
             consumer.subscribe(Arrays.asList(entry.getKey()));
             registerTopics(topicConfiguration.getTopic(), topicConfiguration.getConsumerGroup(), topicConfiguration.getEnvironment(), 0, EMPTY, INITIAL_DATE);
             logger.info("*** registering topic - " + topicConfiguration.getTopic());
@@ -119,7 +120,7 @@ public class Processor {
      * @param topicConfiguration topicConfiguration
      * @param consumer consumer
      */
-    private void processRecords(TopicConfiguration topicConfiguration, KafkaConsumer<String, Record> consumer) {
+    private void processRecords(TopicConfiguration topicConfiguration, KafkaConsumer<String, ?> consumer) {
         logger.info("polling " + topicConfiguration.getTopic() + " " + runningFlag);
 
         new Thread(() -> {
@@ -127,8 +128,8 @@ public class Processor {
             while (runningFlag) {
                 try {
                     fetchRecords(consumer, topicConfiguration);
-                    ConsumerRecords<String, Record> records = consumer.poll(100);
-                    for (ConsumerRecord<String, Record> consumerRecord : records) {
+                    ConsumerRecords<String, ?> records = consumer.poll(100);
+                    for (ConsumerRecord<String, ?> consumerRecord : records) {
                         logger.info("Processing record at offset: " + consumerRecord.offset());
                         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(DATE_FORMAT);
                         long timestamp = consumerRecord.timestamp();
@@ -166,7 +167,7 @@ public class Processor {
      * @param consumer kafka consumer
      * @param topicConfiguration configuration
      */
-    private void fetchRecords(KafkaConsumer<String, Record> consumer, TopicConfiguration topicConfiguration) {
+    private void fetchRecords(KafkaConsumer<String, ?> consumer, TopicConfiguration topicConfiguration) {
         if (recordRequests.size() > 0) {
             logger.info("fetching records, recordsRequests size: " + recordRequests.size());
         }
@@ -184,11 +185,11 @@ public class Processor {
                     }
                 }
 
-                ConsumerRecords<String, Record> customerRecords = consumer.poll(750);
+                ConsumerRecords<String, ?> customerRecords = consumer.poll(750);
                 String record = "";
                 try {
                     if (customerRecords.iterator().hasNext()) {
-                        ConsumerRecord<String, Record> consumerRecord = customerRecords.iterator().next();
+                        ConsumerRecord<String, ?> consumerRecord = customerRecords.iterator().next();
                         record = consumerRecord.value().toString();
                         logger.info("**** record fetched for topic: " + topicConfiguration.getTopic() + " is: " + record + " at offset: " + consumerRecord.offset() + " inserted at time: "
                                         + consumerRecord.timestamp() + " ****");
@@ -206,7 +207,7 @@ public class Processor {
         }
     }
 
-    private void fetchLatestRecord(KafkaConsumer<String, Record> consumer, TopicConfiguration topicConfiguration) {
+    private void fetchLatestRecord(KafkaConsumer<String, ?> consumer, TopicConfiguration topicConfiguration) {
         Set<TopicPartition> topicPartitions = consumer.assignment();
         consumer.seekToEnd(topicPartitions);
         for (TopicPartition topicPartition : topicPartitions) {
@@ -215,9 +216,9 @@ public class Processor {
                 consumer.seek(topicPartition, lastOffset);
         }
 
-        ConsumerRecords<String, Record> customerRecords = consumer.poll(750);
+        ConsumerRecords<String, ?> customerRecords = consumer.poll(750);
         String record = "";
-        ConsumerRecord<String, Record> consumerRecord = null;
+        ConsumerRecord<String, ?> consumerRecord = null;
         try {
             if (customerRecords.iterator().hasNext()) {
                 consumerRecord = customerRecords.iterator().next();

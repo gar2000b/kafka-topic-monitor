@@ -4,6 +4,7 @@ public class TopicConfiguration {
 
     String topic;
     String consumerGroup;
+    String serializer;
     String environment;
     String jaasConsumerConf;
     String keytabFilename;
@@ -59,4 +60,12 @@ public class TopicConfiguration {
     public void setKeytab(String keytab) {
         this.keytab = keytab;
     }
+
+	public String getSerializer() {
+		return serializer;
+	}
+
+	public void setSerializer(String serializer) {
+		this.serializer = serializer;
+	}
 }
