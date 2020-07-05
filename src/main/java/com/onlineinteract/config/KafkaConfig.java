@@ -25,6 +25,9 @@ public class KafkaConfig {
 	public static final String LOCAL_EXAMPLE_TOPIC = "example-topic";
     public static final String LOCAL_EXAMPLE_TOPIC_CONFIGURATION = "{\"topic\":\"example-topic\", \"consumerGroup\":\"example-topic-monitor\", \"serializer\":\"String\", \"environment\":\"LOCAL\"}";
 	
+	public static final String LOCAL_CUSTOMER_EVENT_TOPIC = "customer-event-topic";
+    public static final String LOCAL_CUSTOMER_EVENT_TOPIC_CONFIGURATION = "{\"topic\":\"customer-event-topic\", \"consumerGroup\":\"customer-event-topic-monitor\", \"serializer\":\"String\", \"environment\":\"LOCAL\"}";
+    
     public static final String UAT_TOPIC_LOCAL = "bw00-u-pda-opened-event";
     public static final String IT_TOPIC_LOCAL = "bw00-d-i-pda-opened-event";
     public static final String DEV_TOPIC_LOCAL = "bw00-d-pda-opened-event";

@@ -73,6 +73,7 @@ public class Processor {
         if (applicationProperties.getApplicationEnvCode().equals(LOCAL_ENV)) {
             topicConfigurations.put(KafkaConfig.LOCAL_TEST_TOPIC, KafkaConfig.LOCAL_TEST_TOPIC_CONFIGURATION);
             topicConfigurations.put(KafkaConfig.LOCAL_EXAMPLE_TOPIC, KafkaConfig.LOCAL_EXAMPLE_TOPIC_CONFIGURATION);
+            topicConfigurations.put(KafkaConfig.LOCAL_CUSTOMER_EVENT_TOPIC, KafkaConfig.LOCAL_CUSTOMER_EVENT_TOPIC_CONFIGURATION);
 		}
 
         logger.info("**** topicConfigurations length is: " + topicConfigurations.size() + " ****");
