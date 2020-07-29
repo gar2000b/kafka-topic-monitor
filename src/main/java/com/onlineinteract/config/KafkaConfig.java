@@ -21,12 +21,18 @@ public class KafkaConfig {
 	
 	public static final String LOCAL_TEST_TOPIC = "test-topic";
     public static final String LOCAL_TEST_TOPIC_CONFIGURATION = "{\"topic\":\"test-topic\", \"consumerGroup\":\"test-topic-monitor\", \"serializer\":\"Avro\", \"environment\":\"LOCAL\"}";
+
+    public static final String LOCAL_TEST_TOPIC_2 = "test-topic-2";
+    public static final String LOCAL_TEST_TOPIC_2_CONFIGURATION = "{\"topic\":\"test-topic-2\", \"consumerGroup\":\"test-topic-2-monitor\", \"serializer\":\"Avro\", \"environment\":\"LOCAL\"}";
 	
 	public static final String LOCAL_EXAMPLE_TOPIC = "example-topic";
     public static final String LOCAL_EXAMPLE_TOPIC_CONFIGURATION = "{\"topic\":\"example-topic\", \"consumerGroup\":\"example-topic-monitor\", \"serializer\":\"String\", \"environment\":\"LOCAL\"}";
 	
 	public static final String LOCAL_CUSTOMER_EVENT_TOPIC = "customer-event-topic";
     public static final String LOCAL_CUSTOMER_EVENT_TOPIC_CONFIGURATION = "{\"topic\":\"customer-event-topic\", \"consumerGroup\":\"customer-event-topic-monitor\", \"serializer\":\"String\", \"environment\":\"LOCAL\"}";
+
+    public static final String LOCAL_ACCOUNT_EVENT_TOPIC = "account-event-topic";
+    public static final String LOCAL_ACCOUNT_EVENT_TOPIC_CONFIGURATION = "{\"topic\":\"account-event-topic\", \"consumerGroup\":\"account-event-topic-monitor\", \"serializer\":\"Avro\", \"environment\":\"LOCAL\"}";
     
     public static final String UAT_TOPIC_LOCAL = "bw00-u-pda-opened-event";
     public static final String IT_TOPIC_LOCAL = "bw00-d-i-pda-opened-event";
@@ -141,7 +147,7 @@ public class KafkaConfig {
         properties.put("group.id", topicConfiguration.getConsumerGroup());
         logger.info("^^^ " + topicConfiguration.getConsumerGroup());
         properties.put("enable.auto.commit", "false");
-        properties.put("max.poll.records", "200");
+        properties.put("max.poll.records", "10000");
         if (topicConfiguration.getSerializer().equals("Avro")) {
         	properties.put("key.deserializer", StringDeserializer.class);
         	properties.put("value.deserializer", KafkaAvroDeserializer.class);
