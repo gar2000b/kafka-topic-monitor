@@ -20,6 +20,6 @@ authentication:
   password: password
   
 kafka:
-  bootstrap.servers: colossal.canadacentral.cloudapp.azure.com:29092
+  bootstrap.servers: colossal.canadacentral.cloudapp.azure.com:29092,colossal.canadacentral.cloudapp.azure.com:39092,colossal.canadacentral.cloudapp.azure.com:49092
   schema.registry.url: http://colossal.canadacentral.cloudapp.azure.com:8081
   
