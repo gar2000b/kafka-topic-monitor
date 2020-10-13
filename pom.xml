@@ -56,7 +56,7 @@
 		<springfox-version>2.9.2</springfox-version>
 
 		<!-- testing -->
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 
 		<!-- maven plug-ins -->
 		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
